@@ -37,6 +37,27 @@ class DOM{
         this.$el.removeEventListener(eventType, fn);
     }
 
+    closest(selector){
+        return $(this.$el.closest(selector))
+    }
+
+    getCordes(){
+        return this.$el.getBoundingClientRect()
+    }
+
+    get data(){
+        return this.$el.dataset
+    }
+
+
+    findAll(selector){
+        return this.$el.querySelectorAll(selector)
+    }
+
+    css(styles = {}){
+        Object.keys(styles).forEach(el=>this.$el.style[el] = styles[el] )
+    }
+
 }
 
 export function $(selector) {
