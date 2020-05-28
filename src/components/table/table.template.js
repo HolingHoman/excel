@@ -3,22 +3,26 @@ const CODES = {
     Z: 90
 }
 
-function createCell() {
+function createCell(_,index) {
     return `
-        <div class="cell" contenteditable="true"></div>
+        <div class="cell" contenteditable="true" data-col="${index}"></div>
     `
 }
 
-function createCol(el) {
-    return `<div class="column">${el}</div>`
+function createCol(el, index) {
+    return `<div class="column" data-type="resizable" data-col="${index}">
+        ${el}
+        <div class="col-resize" data-resize="coll"></div>
+    </div>`
 }
 
 
 
 function createRow(index,content) {
+    const resize = index ? `<div class="row-resiaze" data-resize="row"></div>` : ''
     return `
-        <div class="row">
-            <div class="row-info">${index ? index : ''}</div>
+        <div class="row" data-type="resizable">
+            <div class="row-info">${index ? index : ''}${resize}</div>
             <div class="row-data">${content}</div>
         </div>
     `

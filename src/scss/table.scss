@@ -14,6 +14,22 @@
     min-height: 20px;
     height: $row-height;
   }
+
+  .row-info, .column{
+    .row-resiaze, .col-resize{
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      background-color: $primaru-color;
+      opacity: 0;
+      z-index: 1000;
+      &:hover{
+        opacity: 1 !important;
+        cursor: col-resize;
+      }
+    }
+  }
+
   .row-info{
     display: flex;
     justify-content: center;
@@ -22,7 +38,13 @@
     height: 100%;
     border: 1px solid $border-color;
     background-color: #f8f9fa;
+    position: relative;
     border-top: none;
+    .row-resiaze{
+      position: absolute;
+      left: 0;
+      height: 4px;
+    }
   }
 
   .column{
@@ -36,6 +58,11 @@
     height: 100%;
     border-top: none;
     border-left: none;
+    position: relative;
+    .col-resize{
+      top: 0;
+      width: 4px;
+    }
   }
 
   .row-data{
@@ -54,7 +81,7 @@
     outline: none;
     &.selected{
       border: none;
-      outline: 2px solid #3c74ff;
+      outline: 2px solid $primaru-color;
       z-index: 2;
     }
   }
