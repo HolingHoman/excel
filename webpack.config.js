@@ -1,24 +1,11 @@
 const path = require('path');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
 const copyPlugin = require('copy-webpack-plugin');
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
-
-const jsloader = () =>{
-    const loaders = [
-        {
-            loader: 'babel-loader',
-            options: {
-                presets: ['@babel/preset-env'],
-                plugins: ['@babel/plugin-proposal-class-properties']
-            }
-        }
-    ]
-
-    return loaders
-}
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
@@ -51,6 +38,9 @@ module.exports = {
         }),
         new miniCssExtractPlugin({
             filename: 'bundle.[hash].css'
+        }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         })
     ],
     devtool: isDev ? 'source-map' : false,
@@ -73,7 +63,15 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: jsloader(),
+                loader: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env'],
+                            plugins: ['@babel/plugin-proposal-class-properties']
+                        }
+                    }
+                ],
             }
         ]
     }
